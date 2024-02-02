@@ -1,8 +1,17 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using CustomerAccountManager.Models;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+
+var configuration = builder.Configuration;
+builder.Services.AddDbContext<CustomerAccDbContext>(options =>
+{
+    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+});
 
 var app = builder.Build();
 
